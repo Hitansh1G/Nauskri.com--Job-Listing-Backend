@@ -1,25 +1,53 @@
 package com.example.jobListing.Controller;
 
 //import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.jobListing.Model.Post;
+import com.example.jobListing.Repository.PostRepository;
+import com.example.jobListing.Repository.SearchRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @RestController
-public class PostController {
-    // GET method - /allposts - give all the jobs
-    // POST method - /posts - submit a new job
-    // GET method -/search - search a job
+public class PostController
+{
 
-    //every time somone requests for the Home Page
+    @Autowired
+    PostRepository repo;
+
+//    @Autowired
+    SearchRepository srepo;
+
     @ApiIgnore
-    @RequestMapping(value = "/")
+    @RequestMapping(value="/")
     public void redirect(HttpServletResponse response) throws IOException {
         response.sendRedirect("/swagger-ui.html");
     }
 
-//    public List<Post>
+    @GetMapping("/allPosts")
+    @CrossOrigin
+    public List<Post> getAllPosts()
+    {
+        return repo.findAll();
+    }
+    // posts/java
+    @GetMapping("/posts/{text}")
+    @CrossOrigin
+    public List<Post> search(@PathVariable String text)
+    {
+        return srepo.findByText(text);
+    }
+
+    @PostMapping("/post")
+    @CrossOrigin
+    public Post addPost(@RequestBody Post post)
+    {
+        return repo.save(post);
+    }
+
+
 }

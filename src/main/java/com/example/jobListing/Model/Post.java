@@ -1,19 +1,15 @@
 package com.example.jobListing.Model;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.Arrays;
 
+@Document(collation = "jobPosting")
 public class Post {
     private String profile;
-    private String description;
-    private Integer experience;
-    private String technology[];
-
-    public Post(String profile, String description, Integer experience, String[] technology) {
-        this.profile = profile;
-        this.description = description;
-        this.experience = experience;
-        this.technology = technology;
-    }
+    private String desc;
+    private int exp;
+    private String techs[];
 
     public Post() {
     }
@@ -26,37 +22,37 @@ public class Post {
         this.profile = profile;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDesc() {
+        return desc;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
-    public Integer getExperience() {
-        return experience;
+    public int getExp() {
+        return exp;
     }
 
-    public void setExperience(Integer experience) {
-        this.experience = experience;
+    public void setExp(int exp) {
+        this.exp = exp;
     }
 
-    public String[] getTechnology() {
-        return technology;
+    public String[] getTechs() {
+        return techs;
     }
 
-    public void setTechnology(String[] technology) {
-        this.technology = technology;
+    public void setTechs(String[] techs) {
+        this.techs = techs;
     }
 
     @Override
     public String toString() {
         return "Post{" +
                 "profile='" + profile + '\'' +
-                ", description='" + description + '\'' +
-                ", experience=" + experience +
-                ", technology=" + Arrays.toString(technology) +
+                ", desc='" + desc + '\'' +
+                ", exp=" + exp +
+                ", techs=" + Arrays.toString(techs) +
                 '}';
     }
 }
